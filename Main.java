@@ -1,52 +1,38 @@
-import java.util.*;
-import java.io.*;
-public class Main{
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
- public static void main(String[] args) {
-	String test ="important information"; // proof of concept
-	// I don't even know how to create user interfaces in java help 😀
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-	String filename = "tester.txt";
-        String content = "wp={0.38,0}\n" +
-                "wp={0.242,0.256}\n" +
-                "wp={0.237,0.61}\n" +
-                "wp={0.095,0.886}\n" +
-                "wp={0.237,0.61}\n" +
-                "wp={0.658,0.435}\n" +
-                "wp={0.784,0.123}\n" +
-                "wp={"+ test +",0.435}\n" +
-                "wp={0.866,0.666}\n" +
-                "wp={1,0.746}\n" +
-                "rp={0.363,0.193}\n" +
-                "rp={0.2,0.01}\n" +
-                "rp={0,0}\n" +
-                "rp={0,0}\n" +
-                "rp={0,0}\n" +
-                "rp={0,0}\n" +
-                "rp={0,0}\n" +
-                "rp={0,0}\n" +
-                "rp={0,0}\n" +
-                "rp={0,0}\n" +
-                "gp={10}\n" +
-                "gp={00}\n" +
-                "gp={00}\n" +
-                "gp={00}\n" +
-                "gp={00}\n" +
-                "gp={00}\n" +
-                "gp={00}\n" +
-                "gp={00}\n" +
-                "gp={00}\n" +
-                "gp={00}\n";
+        System.out.print("Quantidade de coordenadas (pontos wp): ");
+        int numCoords = Integer.parseInt(scanner.nextLine());
 
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
-            writer.write(content);
-            writer.close();
-            System.out.println("Arquivo criado com sucesso!");
+        String fileName = "coordenadas.txt"; // Nome padrão do arquivo
+
+        System.out.println("Digite as coordenadas (x, y) dos pontos wp, rp e o valor gp separados por espaço:");
+
+        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName))) {
+            for (int i = 0; i < numCoords; i++) {
+                System.out.print("wp: ");
+                String wpCoords = scanner.nextLine();
+
+                System.out.print("rp: ");
+                String rpCoords = scanner.nextLine();
+
+                System.out.print("gp: ");
+                int gp = Integer.parseInt(scanner.nextLine());
+
+                // Escreve as coordenadas no arquivo
+                writer.println("wp={" + wpCoords + "}");
+                writer.println("rp={" + rpCoords + "}");
+                writer.println("gp={" + gp + "}");
+            }
+            System.out.println("Coordenadas foram gravadas no arquivo " + fileName);
         } catch (IOException e) {
-            e.printStackTrace();
-
-
-}
-}
+            System.out.println("Erro ao gravar as coordenadas no arquivo.");
+        }
+    }
 }
